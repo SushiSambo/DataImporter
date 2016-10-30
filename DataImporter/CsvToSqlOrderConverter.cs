@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace DataImporter
 {
@@ -15,9 +16,8 @@ namespace DataImporter
     {
         public void Import(StreamReader stream, IOrderReaderStrategy reader, IOrderWriterStrategy writer)
         {
-            //Put any further specific code here
             var orders = reader.Read(stream);
-            writer.Write(orders); //todo change to parallel foreach
+            writer.Write(orders);
         }
 
         //Still to do
