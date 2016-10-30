@@ -8,6 +8,6 @@ namespace DataImporter.interfaces
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        Tuple<bool,string> IsValid(Order order);
+        OrderState IsValid(Order order);
     }
 }

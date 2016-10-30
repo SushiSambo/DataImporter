@@ -3,11 +3,7 @@ namespace DataImporter.interfaces
 {
     interface IOrderConverter
     {
-        IOrderReaderStrategy GetOrderReaderStrategy();
-
-        IOrderWriterStrategy GetOrderWriterStrategy();
-
-        void Import(StreamReader stream);
+        void Import(StreamReader stream, IOrderReaderStrategy reader, IOrderWriterStrategy writer);
 
         ILogger ExceptionLogger { get; set;}
     }

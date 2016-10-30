@@ -13,17 +13,11 @@ namespace DataImporter
     /// </summary>
     public class CsvToSqlOrderConverter : IOrderConverter
     {
-        public IOrderReaderStrategy _orderReaderStrategy = new CsvReaderStrategy();
-        public IOrderWriterStrategy _orderWriterStrategy = new SqlWriterStrategy();
-
-        public IRowValidator RowValidator { get; set; }
-        public List<ColumnConfiguration> Columns { get; set; }
-      
-        public void Import(StreamReader stream)
+        public void Import(StreamReader stream, IOrderReaderStrategy reader, IOrderWriterStrategy writer)
         {
             //Put any further specific code here
-            var orders = _orderReaderStrategy.Read(RowValidator,Columns,stream);
-            _orderWriterStrategy.Write(orders);
+            var orders = reader.Read(stream);
+            writer.Write(orders); //todo change to parallel foreach
         }
 
         //Still to do
@@ -37,17 +31,6 @@ namespace DataImporter
             {
                 throw new NotImplementedException();
             }
-        }
-
-        //Not great, refactor to parent class
-        public IOrderReaderStrategy GetOrderReaderStrategy()
-        {
-            return _orderReaderStrategy;
-        }
-
-        public IOrderWriterStrategy GetOrderWriterStrategy()
-        {
-            return _orderWriterStrategy;
         }
     }
 }
